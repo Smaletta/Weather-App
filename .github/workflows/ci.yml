@@ -28,3 +28,7 @@ jobs:
 
     - name: Build project
       run: npm run build # Builds the Vite React project
+
+    - name: Deploy to Render
+      if: success()
+      run: curl x POST "${{ secrets.RENDER_EXTERNAL_WEBHOOK_URL }}"
