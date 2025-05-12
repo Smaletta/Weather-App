@@ -3,9 +3,9 @@ name: Weather App
 # Trigger workflow on every push to main branch or pull request to main
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
