@@ -5,6 +5,7 @@ function App() {
 
   return (
     <>
+      <PrimarySearchAppBar />
       <h1 class="text-3xl font-bold underline p-2">Weather App</h1>
       <DataTable />
     </>
