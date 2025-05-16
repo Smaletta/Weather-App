@@ -1,5 +1,5 @@
 import './App.css'
-import AppBar from './components/AppBar/AppBar.jsx'
+import SearchAppBar from './components/AppBar/AppBar.jsx'
 import DataTable from './components/DataTable/DataTable.jsx'
 
 function App() {
