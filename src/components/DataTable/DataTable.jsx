@@ -21,23 +21,25 @@ const Item = styled(Paper)(({ theme }) => ({
 function DataTable() {
     const { search } = useWeatherData();
     const { location, weather, loading, error } = useFetch(search);
+    const { img } = useWeatherData();
 
     return (
         <Box id="DataTable">
             <Typography id="title" component="h1" variant="h4" gutterBottom>
-                {location && location.results[0].name} {location && location.results[0].country}
+                {location && location[0].name} {location && location[0].country}
                 {loading && <p className="info">Loading...</p>}
                 {error && <p className="error">Error: {error}</p>}
             </Typography>
             <Container sx={{ flexGrow: 1 }}>
                 <Grid container spacing={{ xs: 2, md: 3, lg: 4, xl: 5, xxl: 6 }} columns={{ xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24 }}>
-                    {weather && weather.daily.time.map((time, index) => (
+                    {weather && weather.list.map((index) => (
                         <Grid key={index} size={{ xs: 2, sm: 4, md: 4 }}>
-                            <Item key={index} className="day">
-                                <h3>{new Date(time).toLocaleDateString()}</h3>
-                                <p>Max: {weather.daily.temperature_2m_max[index]}°C</p>
-                                <p>Min: {weather.daily.temperature_2m_min[index]}°C</p>
-                                <p>Precipitation: {weather.daily.precipitation_sum[index]}mm</p>
+                            <Item key={index} className="Hourly">
+                                <h3>{new Date(dt).toLocaleDateString()}</h3>
+                                <p>Max: {weather.list[index].main.temp_max}°K</p>
+                                <p>Min: {weather.list[index].main.temp_min}°K</p>
+                                <p>Weather: {weather.list[index].weather[0].main}</p>
+                                <p>Precipitation: {weather.list[index].rain['3h']}mm</p>
                             </Item>
                         </Grid>
                     ))}
