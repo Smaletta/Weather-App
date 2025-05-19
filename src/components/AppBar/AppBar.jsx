@@ -8,11 +8,8 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LightDarkToggle from '../LightDarkToggle/LightDarkToggle';
-import { useState, useEffect } from 'react';
-import useGeoLocation from '../../hooks/useGeoLocation';
-import useWeatherData from '../../hooks/useWeatherData';
-import useWeatherImage from '../../hooks/useWeatherImage';
-
+import { useState} from 'react';
+import { useWeatherData } from '../../context/WeatherData';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,15 +54,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const { setSearch } = useWeatherData();
+  const [fetch, setFetch] = useState('');
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    setFetch(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    useGeoLocation(searchTerm);
+    setSearch(fetch);
+    console.log(fetch);
   };
 
   return (
@@ -90,16 +89,16 @@ export default function SearchAppBar() {
             Weather App
           </Typography>
           <form onSubmit={handleSubmit}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Enter location"
-              value={searchTerm}
-              onChange={handleChange}
-            />
-          </Search>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Enter location"
+                value={fetch}
+                onChange={handleChange}
+              />
+            </Search>
           </form>
           <LightDarkToggle
             edge="start"
